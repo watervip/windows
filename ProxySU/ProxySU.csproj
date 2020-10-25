@@ -64,6 +64,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -81,29 +82,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="NaiveProxyResultInfoWindow.xaml.cs">
-      <DependentUpon>NaiveProxyResultInfoWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ProofreadTimeWindow.xaml.cs">
       <DependentUpon>ProofreadTimeWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ResultClientInformation.xaml.cs">
       <DependentUpon>ResultClientInformation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TemplateConfiguration.xaml.cs">
-      <DependentUpon>TemplateConfiguration.xaml</DependentUpon>
+    <Compile Include="SSpluginWindow.xaml.cs">
+      <DependentUpon>SSpluginWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TrojanGoResultClientInfoWindow.xaml.cs">
-      <DependentUpon>TrojanGoResultClientInfoWindow.xaml</DependentUpon>
+    <Compile Include="V2RayTemplateWindow.xaml.cs">
+      <DependentUpon>V2RayTemplateWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="TrojanGoTemplateWindow.xaml.cs">
       <DependentUpon>TrojanGoTemplateWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="TrojanResultClientInfoWindow.xaml.cs">
-      <DependentUpon>TrojanResultClientInfoWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="TrojanTemplateWindow.xaml.cs">
-      <DependentUpon>TrojanTemplateWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -117,10 +109,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="NaiveProxyResultInfoWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ProofreadTimeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -129,23 +117,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TemplateConfiguration.xaml">
+    <Page Include="SSpluginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TrojanGoResultClientInfoWindow.xaml">
+    <Page Include="Translations\ProxySU.zh-CN.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Translations\ProxySU.en-US.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Translations\ProxySU.zh-TW.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="V2RayTemplateWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TrojanGoTemplateWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="TrojanResultClientInfoWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="TrojanTemplateWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -183,20 +175,20 @@
   <ItemGroup>
     <Resource Include="ProxySU.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>del "$(TargetDir)*.xml"
 del "$(TargetDir)*.pdb"
 del "$(TargetDir)*.zip"
-del /F /S /Q "$(TargetDir)naive_config"
-del /F /S /Q "$(TargetDir)trojan_config"
-del /F /S /Q "$(TargetDir)v2ray_config"
-del /F /S /Q "$(TargetDir)TemplateConfg"
 mkdir "$(TargetDir)TemplateConfg"
-copy /Y "$(TargetDir)..\..\..\TemplateConfg\*.*" "$(TargetDir)TemplateConfg\"
+xcopy /Y /E /R "$(TargetDir)..\..\..\TemplateConfg\*.*" "$(TargetDir)TemplateConfg\"
 "$(TargetDir)..\..\..\7z\7z.exe" a $(TargetDir)Release.zip $(TargetDir) -xr!*config
-del /F /S /Q "$(TargetDir)..\Beta"
+rmdir /S /Q "$(TargetDir)..\Beta"
 mkdir "$(TargetDir)..\Beta"
 copy /Y "$(TargetDir)Release.zip" "$(TargetDir)..\Beta\Beta.zip"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>rmdir /S /Q "$(TargetDir)</PreBuildEvent>
   </PropertyGroup>
 </Project>
